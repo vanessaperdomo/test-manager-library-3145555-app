@@ -124,13 +124,14 @@ export function LoansPage() {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'active':
+      case 'open':
         return <span className="badge badge-info">En curso</span>;
       case 'closed':
         return <span className="badge badge-success">Completado</span>;
       case 'overdue':
         return <span className="badge badge-danger">Vencido</span>;
       default:
-        return <span className="badge">{status}</span>;
+        return <span className="badge badge-info">{status || 'En curso'}</span>;
     }
   };
 
@@ -165,7 +166,7 @@ export function LoansPage() {
         <div style={{ display: 'flex', gap: '8px' }}>
           {[
             { label: 'Todos', value: '' },
-            { label: 'En curso', value: 'active' },
+            { label: 'En curso', value: 'open' },
             { label: 'Vencidos', value: 'overdue' },
             { label: 'Completados', value: 'closed' }
           ].map((tab) => (
@@ -205,7 +206,7 @@ export function LoansPage() {
                     {getStatusBadge(loan.status)}
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                    Fecha préstamo: {new Date(loan.loaned_at).toLocaleDateString()} &bull; ID: <code style={{ fontSize: '0.72rem' }}>{loan.id.slice(0, 8)}</code>
+                    Fecha préstamo: {loan.loaned_at ? new Date(loan.loaned_at).toLocaleDateString() : 'N/A'} &bull; ID: <code style={{ fontSize: '0.72rem' }}>{(loan.id || '').slice(0, 8)}</code>
                   </div>
                 </div>
               </div>
@@ -217,7 +218,7 @@ export function LoansPage() {
                 </div>
                 {loan.items?.map((item) => {
                   const isReturned = !!item.returned_at;
-                  const isOverdue = !isReturned && new Date(item.due_at) < new Date();
+                  const isOverdue = !isReturned && item.due_at && new Date(item.due_at) < new Date();
 
                   return (
                     <div
@@ -237,7 +238,7 @@ export function LoansPage() {
                         <div>
                           <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>{item.book_title}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                            ISBN: {item.isbn} &bull; Categoría: {item.category_name} &bull; Límite: {new Date(item.due_at).toLocaleDateString()}
+                            ISBN: {item.isbn} &bull; Categoría: {item.category_name} &bull; Límite: {item.due_at ? new Date(item.due_at).toLocaleDateString() : 'N/A'}
                           </div>
                         </div>
                       </div>
@@ -245,7 +246,7 @@ export function LoansPage() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         {isReturned ? (
                           <span className="badge badge-success" style={{ fontSize: '0.75rem' }}>
-                            ✓ Devuelto ({new Date(item.returned_at).toLocaleDateString()})
+                            ✓ Devuelto ({item.returned_at ? new Date(item.returned_at).toLocaleDateString() : ''})
                           </span>
                         ) : isOverdue ? (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -286,26 +287,26 @@ export function LoansPage() {
 
       {/* Modal Nuevo Préstamo */}
       {showModal && (
-        <div className="modal-backdrop">
-          <div className="modal" style={{ maxWidth: '640px' }}>
+        <div className="modal-overlay">
+          <div className="modal-box" style={{ maxWidth: '640px' }}>
             <h2 style={{ margin: '0 0 16px', fontSize: '1.3rem', fontWeight: 800 }}>Nuevo Préstamo</h2>
 
             {modalError && (
-              <div className="alert alert-danger" style={{ marginBottom: '16px' }}>
-                ⚠️ {modalError}
+              <div className="alert-box alert-danger" style={{ marginBottom: '16px' }}>
+                <span>⚠️ {modalError}</span>
               </div>
             )}
 
             <form onSubmit={handleCreateLoan} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Socio selector */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
+                <label className="form-label" style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
                   Seleccionar Socio *
                 </label>
                 <select
                   value={selectedMemberId}
                   onChange={(e) => setSelectedMemberId(e.target.value)}
-                  className="input"
+                  className="form-select"
                   required
                 >
                   <option value="">-- Elige un socio registrado --</option>

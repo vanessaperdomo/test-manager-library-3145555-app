@@ -9,6 +9,7 @@ import { MembersPage } from './pages/MembersPage';
 import { OverduePage } from './pages/OverduePage';
 import { ReportsPage } from './pages/ReportsPage';
 import { UsersPage } from './pages/UsersPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 export function App() {
   const { isAuthenticated, loading } = useAuth();
@@ -43,12 +44,14 @@ export function App() {
         <Header activeTab={activeTab} />
 
         <main className="dashboard-content">
-          {activeTab === 'books' && <BooksPage />}
-          {activeTab === 'loans' && <LoansPage />}
-          {activeTab === 'members' && <MembersPage />}
-          {activeTab === 'overdue' && <OverduePage />}
-          {activeTab === 'reports' && <ReportsPage />}
-          {activeTab === 'users' && <UsersPage />}
+          <ErrorBoundary>
+            {activeTab === 'books' && <BooksPage />}
+            {activeTab === 'loans' && <LoansPage />}
+            {activeTab === 'members' && <MembersPage />}
+            {activeTab === 'overdue' && <OverduePage />}
+            {activeTab === 'reports' && <ReportsPage />}
+            {activeTab === 'users' && <UsersPage />}
+          </ErrorBoundary>
         </main>
 
         <footer className="dashboard-footer">
