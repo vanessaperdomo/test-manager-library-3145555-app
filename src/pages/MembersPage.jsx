@@ -16,8 +16,8 @@ export function MembersPage() {
   const [submitting, setSubmitting] = useState(false);
   const [modalError, setModalError] = useState(null);
 
-  const fetchMembers = async () => {
-    setLoading(true);
+  const fetchMembers = async (showLoading = true) => {
+    if (showLoading) setLoading(true);
     setError(null);
     try {
       const params = { size: 50 };
@@ -32,9 +32,13 @@ export function MembersPage() {
   };
 
   useEffect(() => {
+    if (!searchQuery.trim()) {
+      fetchMembers(members.length === 0);
+      return;
+    }
     const timer = setTimeout(() => {
-      fetchMembers();
-    }, 300);
+      fetchMembers(false);
+    }, 200);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 

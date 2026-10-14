@@ -45,12 +45,24 @@ export function App() {
 
         <main className="dashboard-content">
           <ErrorBoundary>
-            {activeTab === 'books' && <BooksPage />}
-            {activeTab === 'loans' && <LoansPage />}
-            {activeTab === 'members' && <MembersPage />}
-            {activeTab === 'overdue' && <OverduePage />}
-            {activeTab === 'reports' && <ReportsPage />}
-            {activeTab === 'users' && <UsersPage />}
+            <div style={{ display: activeTab === 'books' ? 'block' : 'none' }}>
+              <BooksPage />
+            </div>
+            <div style={{ display: activeTab === 'loans' ? 'block' : 'none' }}>
+              <LoansPage />
+            </div>
+            <div style={{ display: activeTab === 'members' ? 'block' : 'none' }}>
+              <MembersPage />
+            </div>
+            <div style={{ display: activeTab === 'overdue' ? 'block' : 'none' }}>
+              <OverduePage />
+            </div>
+            <div style={{ display: activeTab === 'reports' ? 'block' : 'none' }}>
+              <ReportsPage />
+            </div>
+            <div style={{ display: activeTab === 'users' ? 'block' : 'none' }}>
+              <UsersPage />
+            </div>
           </ErrorBoundary>
         </main>
 
