@@ -288,3 +288,9 @@ h1, h2, h3, h4 {
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #86efac;
 }
+
+/* Scrollbar & Polish */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
