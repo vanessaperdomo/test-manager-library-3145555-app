@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { IconBook } from '../components/Icons';
 
 export function LoginPage() {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { login } = useAuth();
@@ -40,11 +41,10 @@ export function LoginPage() {
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '28px',
             marginBottom: '14px',
             boxShadow: '0 8px 24px rgba(37, 99, 235, 0.45)'
           }}>
-            📖
+            <IconBook size={28} color="#ffffff" />
           </div>
           <h2 style={{ fontSize: '1.6rem', marginBottom: '6px' }}>Manager Library</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
@@ -69,6 +69,7 @@ export function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Ej. admin o bibliotecario"
               required
+              autoFocus
             />
           </div>
 
@@ -93,17 +94,6 @@ export function LoginPage() {
             {loading ? 'Validando...' : 'Iniciar Sesión →'}
           </button>
         </form>
-
-        <div style={{
-          marginTop: '24px',
-          paddingTop: '18px',
-          borderTop: '1px solid var(--border-subtle)',
-          textAlign: 'center',
-          fontSize: '0.8rem',
-          color: 'var(--text-dim)'
-        }}>
-          Credenciales iniciales: <strong>admin</strong> / <strong>admin123</strong>
-        </div>
       </div>
     </div>
   );
