@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { IconPlus, IconSearch, IconImage, IconEdit, IconTrash } from '../components/Icons';
 
 export function BooksPage() {
   const { isAdmin } = useAuth();
@@ -158,25 +159,26 @@ export function BooksPage() {
           </p>
         </div>
         {isAdmin && (
-          <button
-            onClick={() => { resetForm(); setShowCreateModal(true); }}
-            className="btn btn-primary"
-          >
-            + Nuevo Libro
-          </button>
+          <div>
+            <button
+              onClick={() => { resetForm(); setShowCreateModal(true); }}
+              className="btn btn-primary"
+            >
+              <IconPlus size={16} /> Registrar Nuevo Libro
+            </button>
+          </div>
         )}
       </div>
 
       {feedback.message && (
         <div className={`alert-box alert-${feedback.type}`}>
-          <span>{feedback.type === 'danger' ? '⚠️' : '✅'}</span>
           <span>{feedback.message}</span>
         </div>
       )}
 
       {/* Filtros */}
-      <div className="glass-card" style={{ padding: '20px', marginBottom: '24px' }}>
-        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+      <div className="glass-card" style={{ padding: '16px 20px', marginBottom: '20px' }}>
+        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ flex: '1 1 280px' }}>
             <input
               type="text"
@@ -198,8 +200,8 @@ export function BooksPage() {
               ))}
             </select>
           </div>
-          <button type="submit" className="btn btn-secondary">
-            Buscar 🔍
+          <button type="submit" className="btn btn-primary">
+            <IconSearch size={16} /> Buscar
           </button>
         </form>
       </div>
@@ -237,8 +239,8 @@ export function BooksPage() {
                         style={{ width: '48px', height: '64px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}
                       />
                     ) : (
-                      <div style={{ width: '48px', height: '64px', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
-                        📕
+                      <div style={{ width: '48px', height: '64px', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <IconBook size={20} color="var(--text-dim)" />
                       </div>
                     )}
                   </td>
@@ -246,7 +248,7 @@ export function BooksPage() {
                     <div style={{ fontWeight: '700', fontSize: '1rem', color: '#fff' }}>{b.title}</div>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{b.author}</div>
                   </td>
-                  <td style={{ fontFamily: 'monospace', color: '#c7d2fe' }}>{b.isbn}</td>
+                  <td style={{ fontFamily: 'monospace', color: '#93c5fd' }}>{b.isbn}</td>
                   <td>
                     <span className="badge badge-info">{b.category?.name}</span>
                   </td>
@@ -269,21 +271,21 @@ export function BooksPage() {
                           className="btn btn-secondary btn-sm"
                           title="Subir Portada"
                         >
-                          🖼️
+                          <IconImage size={14} /> Portada
                         </button>
                         <button
                           onClick={() => openEdit(b)}
                           className="btn btn-secondary btn-sm"
-                          title="Editar"
+                          title="Modificar Ejemplares"
                         >
-                          ✏️
+                          <IconEdit size={14} /> Ejemplares
                         </button>
                         <button
                           onClick={() => handleDelete(b)}
                           className="btn btn-danger btn-sm"
                           title="Dar de baja lógica"
                         >
-                          🗑️
+                          <IconTrash size={14} /> Dar de baja
                         </button>
                       </div>
                     </td>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { IconPlus, IconSearch, IconUsers } from '../components/Icons';
 
 export function MembersPage() {
   const [members, setMembers] = useState([]);
@@ -67,15 +68,7 @@ export function MembersPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800 }}>Directorio de Socios</h1>
-          <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            Registro de lectores, control de cupo y préstamos vigentes.
-          </p>
-        </div>
-
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button
           onClick={() => {
             setModalError(null);
@@ -86,46 +79,46 @@ export function MembersPage() {
           className="btn btn-primary"
           id="btn-new-member"
         >
-          + Registrar Socio
+          <IconPlus size={16} /> Registrar Nuevo Socio
         </button>
       </div>
 
       {/* Alerts */}
       {successMsg && (
-        <div className="alert alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>✅ {successMsg}</span>
+        <div className="alert-box alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{successMsg}</span>
           <button onClick={() => setSuccessMsg(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {error && (
-        <div className="alert alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>⚠️ {error}</span>
+        <div className="alert-box alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{error}</span>
           <button onClick={() => setError(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {/* Search Bar */}
-      <div className="card" style={{ padding: '16px' }}>
+      <div className="glass-card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <IconSearch size={18} color="var(--text-muted)" />
         <input
           type="text"
-          placeholder="🔍 Buscar por nombre o número de documento..."
+          placeholder="Buscar por nombre o número de documento de identidad..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="input"
-          style={{ width: '100%', boxSizing: 'border-box' }}
+          className="form-input"
+          style={{ width: '100%' }}
         />
       </div>
 
       {/* Tabla de Socios */}
-      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+      <div className="glass-card" style={{ padding: '10px 24px 24px', overflowX: 'auto' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
             Buscando socios...
           </div>
         ) : members.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '48px' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>👥</div>
             <h3 style={{ margin: '0 0 8px' }}>No se encontraron socios</h3>
             <p style={{ color: 'var(--text-muted)', margin: 0 }}>
               {searchQuery ? 'Prueba con otros términos de búsqueda.' : 'Aún no hay socios registrados en el sistema.'}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { IconPlus, IconBookmark, IconCheck, IconAlertCircle, IconUsers } from '../components/Icons';
 
 export function LoansPage() {
   const [loans, setLoans] = useState([]);
@@ -137,37 +138,29 @@ export function LoansPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800 }}>Préstamos y Devoluciones</h1>
-          <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            Registro transaccional, control de vencimiento y devoluciones por línea.
-          </p>
-        </div>
-
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button onClick={handleOpenModal} className="btn btn-primary" id="btn-new-loan">
-          + Nuevo Préstamo
+          <IconPlus size={16} /> Registrar Nuevo Préstamo
         </button>
       </div>
 
       {/* Alerts */}
       {successMsg && (
-        <div className="alert alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>✅ {successMsg}</span>
+        <div className="alert-box alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{successMsg}</span>
           <button onClick={() => setSuccessMsg(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {error && (
-        <div className="alert alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>⚠️ {error}</span>
+        <div className="alert-box alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{error}</span>
           <button onClick={() => setError(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {/* Filtros */}
-      <div className="card" style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div className="glass-card" style={{ padding: '16px 20px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
         <span style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-muted)' }}>Filtrar por estado:</span>
         <div style={{ display: 'flex', gap: '8px' }}>
           {[
@@ -193,8 +186,7 @@ export function LoansPage() {
           Cargando registros de préstamos...
         </div>
       ) : loans.length === 0 ? (
-        <div className="card" style={{ textAlign: 'center', padding: '48px' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>📖</div>
+        <div className="glass-card" style={{ textAlign: 'center', padding: '48px' }}>
           <h3 style={{ margin: '0 0 8px' }}>No hay préstamos registrados</h3>
           <p style={{ color: 'var(--text-muted)', margin: 0 }}>
             {statusFilter ? 'No hay préstamos con el filtro seleccionado.' : 'Comienza registrando un préstamo para un socio.'}
@@ -203,12 +195,12 @@ export function LoansPage() {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {loans.map((loan) => (
-            <div key={loan.id} className="card" style={{ padding: '20px' }}>
+            <div key={loan.id} className="glass-card" style={{ padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px', marginBottom: '16px' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#fff' }}>
-                      👤 {loan.member_name || 'Socio'}
+                    <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <IconUsers size={16} color="#60a5fa" /> {loan.member_name || 'Socio'}
                     </span>
                     {getStatusBadge(loan.status)}
                   </div>
