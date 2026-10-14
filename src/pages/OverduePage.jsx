@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { IconRefresh, IconAlertCircle } from '../components/Icons';
 
 export function OverduePage() {
   const [items, setItems] = useState([]);
@@ -38,45 +39,36 @@ export function OverduePage() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800 }}>Control de Vencidos</h1>
-          <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            Préstamos con fecha límite superada que bloquean nuevas solicitudes de los socios.
-          </p>
-        </div>
-
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button onClick={fetchOverdue} className="btn btn-secondary btn-sm">
-          🔄 Actualizar lista
+          <IconRefresh size={14} /> Actualizar Lista
         </button>
       </div>
 
       {/* Alerts */}
       {successMsg && (
-        <div className="alert alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>✅ {successMsg}</span>
+        <div className="alert-box alert-success" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{successMsg}</span>
           <button onClick={() => setSuccessMsg(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {error && (
-        <div className="alert alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>⚠️ {error}</span>
+        <div className="alert-box alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{error}</span>
           <button onClick={() => setError(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {/* Tabla de Vencidos */}
-      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+      <div className="glass-card" style={{ padding: '10px 24px 24px', overflowX: 'auto' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
             Consultando registros vencidos...
           </div>
         ) : items.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '48px' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🎉</div>
             <h3 style={{ margin: '0 0 8px', color: '#10b981' }}>¡Al día! No hay préstamos vencidos</h3>
             <p style={{ color: 'var(--text-muted)', margin: 0 }}>
               Todos los libros prestados están dentro del plazo reglamentario o ya fueron devueltos.

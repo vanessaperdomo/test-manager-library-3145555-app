@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { IconBarChart, IconCalendar } from '../components/Icons';
 
 export function ReportsPage() {
   const today = new Date().toISOString().split('T')[0];
@@ -43,17 +44,9 @@ export function ReportsPage() {
   const maxBorrows = rows.length > 0 ? Math.max(...rows.map(r => r.times_borrowed)) : 1;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
-      <div>
-        <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800 }}>Reporte: Libros Más Prestados</h1>
-        <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          Rotación de catálogo consolidada por rango de fechas (ADR-004: datos agregados y privacidad de lectores).
-        </p>
-      </div>
-
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       {/* Date Pickers Bar */}
-      <div className="card" style={{ padding: '20px' }}>
+      <div className="glass-card" style={{ padding: '20px' }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -62,27 +55,27 @@ export function ReportsPage() {
           style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}
         >
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
+            <label className="form-label">
               Fecha Inicial (Desde):
             </label>
             <input
               type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              className="input"
+              className="form-input"
               required
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
+            <label className="form-label">
               Fecha Final (Hasta):
             </label>
             <input
               type="date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
-              className="input"
+              className="form-input"
               required
             />
           </div>
@@ -91,37 +84,36 @@ export function ReportsPage() {
             type="submit"
             className="btn btn-primary"
             disabled={loading}
-            style={{ height: '42px' }}
+            style={{ height: '44px' }}
           >
-            {loading ? 'Consultando...' : '📊 Generar Reporte'}
+            <IconBarChart size={16} /> {loading ? 'Consultando...' : 'Generar Reporte'}
           </button>
         </form>
       </div>
 
       {/* Alert */}
       {error && (
-        <div className="alert alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>⚠️ {error}</span>
+        <div className="alert-box alert-danger" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{error}</span>
           <button onClick={() => setError(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
       {/* Results */}
-      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+      <div className="glass-card" style={{ padding: '10px 24px 24px', overflowX: 'auto' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
             Calculando estadísticas en base de datos...
           </div>
         ) : !hasQueried ? null : rows.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '48px' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>📊</div>
             <h3 style={{ margin: '0 0 8px' }}>Sin préstamos en este rango</h3>
             <p style={{ color: 'var(--text-muted)', margin: 0 }}>
               No se registraron préstamos entre el {fromDate} y el {toDate}.
             </p>
           </div>
         ) : (
-          <table className="table">
+          <table className="custom-table">
             <thead>
               <tr>
                 <th style={{ width: '80px' }}>Puesto</th>

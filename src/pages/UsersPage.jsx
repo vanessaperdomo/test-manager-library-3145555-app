@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../services/api';
+import { IconPlus, IconUserCheck } from '../components/Icons';
 
 export function UsersPage() {
   const [username, setUsername] = useState('');
@@ -36,34 +37,28 @@ export function UsersPage() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
-      <div>
-        <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800 }}>Gestión de Bibliotecarios</h1>
-        <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          Alta de operadores de biblioteca con rol restringido (CA-02.3: Solo rol librarian).
-        </p>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '24px' }}>
         {/* Formulario */}
-        <div className="card">
-          <h2 style={{ margin: '0 0 16px', fontSize: '1.25rem', fontWeight: 700 }}>
-            Registrar Bibliotecario
+        <div className="glass-card" style={{ padding: '24px' }}>
+          <h2 style={{ margin: '0 0 16px', fontSize: '1.2rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <IconUserCheck size={20} color="#60a5fa" /> Registrar Nuevo Bibliotecario
           </h2>
 
           {successUser && (
-            <div className="alert alert-success" style={{ marginBottom: '16px' }}>
-              <div>✅ Bibliotecario registrado con éxito:</div>
-              <div style={{ fontWeight: 700, marginTop: '4px' }}>
-                Usuario: <code>{successUser.username}</code> &bull; Rol: <code>{successUser.role}</code>
+            <div className="alert-box alert-success" style={{ marginBottom: '16px' }}>
+              <div>
+                <div>Bibliotecario registrado con éxito:</div>
+                <div style={{ fontWeight: 700, marginTop: '4px' }}>
+                  Usuario: <code>{successUser.username}</code> &bull; Rol: <code>{successUser.role}</code>
+                </div>
               </div>
             </div>
           )}
 
           {error && (
-            <div className="alert alert-danger" style={{ marginBottom: '16px' }}>
-              ⚠️ {error}
+            <div className="alert-box alert-danger" style={{ marginBottom: '16px' }}>
+              {error}
             </div>
           )}
 
