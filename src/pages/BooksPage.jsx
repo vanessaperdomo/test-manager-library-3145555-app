@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { IconPlus, IconSearch, IconImage, IconEdit, IconTrash } from '../components/Icons';
+import { IconBook, IconPlus, IconSearch, IconImage, IconEdit, IconTrash } from '../components/Icons';
 
 export function BooksPage() {
   const { isAdmin } = useAuth();
