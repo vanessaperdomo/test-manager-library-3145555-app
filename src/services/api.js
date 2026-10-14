@@ -30,7 +30,11 @@ async function request(endpoint, options = {}) {
   // Si devuelve un binario (ej. imagen de portada)
   const contentType = response.headers.get('content-type');
   if (contentType && (contentType.includes('image/') || contentType.includes('application/octet-stream'))) {
-    if (!response.ok) {
+    if (response.status === 401 && token) {
+    if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('auth:expired'));
+  }
+
+  if (!response.ok) {
       throw new Error('Portada no disponible');
     }
     const blob = await response.blob();
