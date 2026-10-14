@@ -162,7 +162,7 @@ export function ReportsPage() {
                       <span className="badge badge-info">{row.category_name}</span>
                     </td>
                     <td>
-                      <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#818cf8' }}>
+                      <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#60a5fa' }}>
                         {row.times_borrowed}
                       </span>
                     </td>
@@ -178,7 +178,7 @@ export function ReportsPage() {
                           <div style={{
                             width: `${percent}%`,
                             height: '100%',
-                            background: 'linear-gradient(90deg, #6366f1, #10b981)',
+                            background: 'linear-gradient(90deg, #2563eb, #38bdf8)',
                             borderRadius: '4px'
                           }} />
                         </div>

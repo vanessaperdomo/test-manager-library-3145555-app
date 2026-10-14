@@ -39,18 +39,18 @@ export function Navbar({ activeTab, setActiveTab }) {
             width: '40px',
             height: '40px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #2563eb, #38bdf8)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '20px',
-            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)'
+            boxShadow: '0 4px 14px rgba(37, 99, 235, 0.45)'
           }}>
             📖
           </div>
           <div>
             <div style={{ fontWeight: '800', fontSize: '1.15rem', letterSpacing: '-0.02em', color: '#fff' }}>
-              Manager <span style={{ color: '#818cf8' }}>Library</span>
+              Manager <span style={{ color: '#60a5fa' }}>Library</span>
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Prueba Técnica ADSO
@@ -67,9 +67,9 @@ export function Navbar({ activeTab, setActiveTab }) {
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
                 style={{
-                  background: isActive ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
-                  color: isActive ? '#818cf8' : 'var(--text-muted)',
-                  border: isActive ? '1px solid rgba(99, 102, 241, 0.35)' : '1px solid transparent',
+                  background: isActive ? 'rgba(37, 99, 235, 0.2)' : 'transparent',
+                  color: isActive ? '#60a5fa' : 'var(--text-muted)',
+                  border: isActive ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid transparent',
                   borderRadius: 'var(--radius-md)',
                   padding: '8px 14px',
                   fontWeight: '600',

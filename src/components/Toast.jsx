@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export function Toast({ message, type = 'info', onClose }) {
   if (!message) return null;
@@ -10,7 +10,7 @@ export function Toast({ message, type = 'info', onClose }) {
       zIndex: 9999,
       padding: '14px 20px',
       borderRadius: 'var(--radius-md)',
-      background: type === 'danger' ? '#ef4444' : type === 'success' ? '#10b981' : '#6366f1',
+      background: type === 'danger' ? '#ef4444' : type === 'success' ? '#10b981' : '#2563eb',
       color: '#fff',
       boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
       display: 'flex',

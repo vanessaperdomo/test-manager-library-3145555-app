@@ -36,13 +36,13 @@ export function LoginPage() {
             width: '56px',
             height: '56px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #2563eb, #38bdf8)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '28px',
             marginBottom: '14px',
-            boxShadow: '0 8px 24px rgba(99, 102, 241, 0.45)'
+            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.45)'
           }}>
             📖
           </div>

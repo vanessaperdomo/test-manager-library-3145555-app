@@ -132,11 +132,11 @@ export function UsersPage() {
 
           <div style={{
             padding: '12px 16px',
-            background: 'rgba(99, 102, 241, 0.08)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            background: 'rgba(37, 99, 235, 0.08)',
+            border: '1px solid rgba(37, 99, 235, 0.25)',
             borderRadius: 'var(--radius-sm)'
           }}>
-            <div style={{ fontWeight: 700, color: '#818cf8', marginBottom: '4px' }}>
+            <div style={{ fontWeight: 700, color: '#60a5fa', marginBottom: '4px' }}>
               👑 Rol Administrador (admin)
             </div>
             <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
